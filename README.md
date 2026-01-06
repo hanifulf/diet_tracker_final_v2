@@ -1,6 +1,6 @@
-# diet_tracker
+# Santapora
 
-A new Flutter project.
+Aplikasi diet tracker berbasis mobile
 
 ## Getting Started
 
