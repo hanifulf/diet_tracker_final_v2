@@ -1,0 +1,49 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
+class OnboardingStorage {
+  static const _keyName = 'name';
+  static const _keyAge = 'age';
+  static const _keyHeight = 'height';
+  static const _keyWeight = 'weight';
+  static const _keyGoal = 'goal';
+
+  // SIMPAN DATA
+  static Future<void> saveUserData({
+    required String name,
+    required int age,
+    required double height,
+    required double weight,
+    required String goal,
+  }) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_keyName, name);
+    await prefs.setInt(_keyAge, age);
+    await prefs.setDouble(_keyHeight, height);
+    await prefs.setDouble(_keyWeight, weight);
+    await prefs.setString(_keyGoal, goal);
+  }
+
+  // AMBIL DATA
+  static Future<Map<String, dynamic>> getUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    return {
+      'name': prefs.getString(_keyName),
+      'age': prefs.getInt(_keyAge),
+      'height': prefs.getDouble(_keyHeight),
+      'weight': prefs.getDouble(_keyWeight),
+      'goal': prefs.getString(_keyGoal),
+    };
+  }
+
+  // CEK SUDAH ONBOARDING ATAU BELUM
+  static Future<bool> isOnboardingCompleted() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.containsKey(_keyName);
+  }
+
+  // RESET (kalau perlu)
+  static Future<void> clear() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
+}
